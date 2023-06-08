@@ -8,10 +8,16 @@
   "bugs": "https://github.com/iam-medvedev/ntpc/issues",
   "author": "Ilya Medvedev <ilya@medvedev.im>",
   "scripts": {
-    "test": "vitest"
+    "commit": "yarn git-cz --disable-emoji",
+    "test": "vitest",
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@types/node": "^18.16.16",
+    "cz-conventional-changelog": "^3.3.0",
+    "git-cz": "^4.9.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "vitest": "^0.32.0"
   },
@@ -22,5 +28,16 @@
   },
   "volta": {
     "node": "18.6.0"
-  }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,json}": [
+      "prettier --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "packageManager": "yarn@3.6.0"
 }
