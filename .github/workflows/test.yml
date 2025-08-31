@@ -21,4 +21,4 @@ jobs:
         run: bun run types
 
       - name: Test
-        run: bun run  test
+        run: bun test

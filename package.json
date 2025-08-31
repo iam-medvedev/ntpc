@@ -26,8 +26,7 @@
     "build:types": "NODE_ENV=production tsc --emitDeclarationOnly --declaration --outDir dist",
     "commit": "bun run git-cz --disable-emoji",
     "postinstall": "husky install",
-    "types": "tsc --noEmit",
-    "test": "vitest"
+    "types": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/bun": "^1.2.21",
@@ -42,8 +41,7 @@
     "lint-staged": "^16.1.5",
     "prettier": "^3.6.2",
     "semantic-release": "^24.2.7",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "typescript": "^5.9.2"
   },
   "prettier": {
     "singleQuote": true,
