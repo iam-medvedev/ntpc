@@ -31,7 +31,7 @@ console.log(currentTime); // Date(2023-06-08T06:46:08.000Z)
 import { getTime } from 'ntpc';
 
 const { currentTime } = await getTime('time.apple.com', 123, {
-  version: 3,
+  version: 3, // Customized version (3 | 4)
 });
 console.log(currentTime); // Date(2023-06-08T06:46:08.000Z)
 ```
