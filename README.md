@@ -11,7 +11,9 @@ Tiny NTP client. Works with [NTP v3](https://datatracker.ietf.org/doc/html/rfc59
 ## Installation
 
 ```sh
-yarn add ntpc
+$ bun add ntpc
+$ yarn add ntpc
+$ npm install ntpc
 ```
 
 ## Usage

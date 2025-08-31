@@ -8,27 +8,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 18.6.0
-          cache: 'yarn'
+          bun-version: latest
 
       - name: Install dependencies
-        run: yarn add --cached
+        run: bun install
 
       - name: Build
-        run: yarn build
+        run: bun run build
 
       - name: Generate types
-        run: yarn build:types
+        run: bun run build:types
 
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn semantic-release
+        run: bun run semantic-release
