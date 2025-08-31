@@ -10,6 +10,9 @@ const hosts: [string, number][] = [
   ['time.apple.com', 123],
   ['time.google.com', 123],
   ['time.windows.com', 123],
+  ['time.cloudflare.com', 123],
+  ['ntp.ubuntu.com', 123],
+  ['time.nist.gov', 123],
 ];
 
 describe.each(versions)(`NTP v%i`, (version) => {
