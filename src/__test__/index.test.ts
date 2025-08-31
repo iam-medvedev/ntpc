@@ -12,17 +12,13 @@ const hosts: [string, number][] = [
   ['time.windows.com', 123],
 ];
 
-for (const version of versions) {
-  describe(`NTP v${version}`, () => {
-    for (const [host, port] of hosts) {
-      it(`${host}:${port}`, async () => {
-        const { currentTime } = await getTime(host, port, { version });
-        expect(currentTime).toBeInstanceOf(Date);
+describe.each(versions)(`NTP v%i`, (version) => {
+  it.each(hosts)('%s:%i', async (host, port) => {
+    const { currentTime } = await getTime(host, port, { version });
+    expect(currentTime).toBeInstanceOf(Date);
 
-        expect(currentTime.getFullYear()).toEqual(currentDate.getFullYear());
-        expect(currentTime.getDay()).toEqual(currentDate.getDay());
-        expect(currentTime.getMonth()).toEqual(currentDate.getMonth());
-      });
-    }
+    expect(currentTime.getFullYear()).toEqual(currentDate.getFullYear());
+    expect(currentTime.getDay()).toEqual(currentDate.getDay());
+    expect(currentTime.getMonth()).toEqual(currentDate.getMonth());
   });
-}
+});
