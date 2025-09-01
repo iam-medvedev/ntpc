@@ -7,21 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 18.6.0
-          cache: 'yarn'
+          bun-version: latest
 
       - name: Install dependencies
-        run: yarn add --cached
+        run: bun install
 
       - name: Check types
-        run: yarn types
+        run: bun run types
 
       - name: Test
-        run: yarn test
+        run: bun test
