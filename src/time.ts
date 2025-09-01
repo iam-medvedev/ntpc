@@ -1,29 +1,22 @@
+const NTP_EPOCH_START = Date.UTC(1900, 0, 1);
+const UNIX_EPOCH_START = Date.UTC(1970, 0, 1);
+
 /**
  * Parses timestamps from data
  * https://datatracker.ietf.org/doc/html/rfc5905#section-6
  *
- * @param ntpTimestamp bigint
+ * @param data Buffer
  * @returns Date
  */
-export function parseTimestamp(ntpTimestamp: bigint): Date {
-  if (ntpTimestamp === 0n) {
-    return new Date(0);
-  }
+export function parseTimestamp(data: Buffer): Date {
+  const timestamp = data.readUInt32BE();
 
-  // NTP epoch starts at January 1, 1900
-  // JavaScript epoch starts at January 1, 1970
-  // Difference is 70 years = 2,208,988,800 seconds
-  const NTP_EPOCH_OFFSET = 2208988800n;
+  // Convert the NTP timestamp to milliseconds since January 1, 1900
+  const ntpTimestamp = NTP_EPOCH_START + timestamp * 1000;
 
-  // Extract seconds (upper 32 bits) and fraction (lower 32 bits)
-  const seconds = ntpTimestamp >> 32n;
-  const fraction = ntpTimestamp & 0xffffffffn;
+  // Get diff between January 1, 1970 and January 1, 1900
+  const unixTimestamp = ntpTimestamp - UNIX_EPOCH_START;
 
-  // Convert to Unix timestamp (seconds since 1970)
-  const unixSeconds = seconds - NTP_EPOCH_OFFSET;
-
-  // Convert fraction to milliseconds (fraction / 2^32 * 1000)
-  const milliseconds = (fraction * 1000n) >> 32n;
-
-  return new Date(Number(unixSeconds) * 1000 + Number(milliseconds));
+  // Return Date object
+  return new Date(unixTimestamp);
 }

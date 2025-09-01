@@ -1,5 +1,7 @@
 dist
 node_modules
 *.log
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
 .vscode
-.DS_Store

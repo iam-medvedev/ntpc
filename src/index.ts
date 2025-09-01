@@ -1,8 +1,7 @@
 import type { NTPData, NTPVersion } from './types';
 import assert from 'assert';
 import { createSocket } from 'dgram';
-import { createPacket } from './packet/create';
-import { parsePacket } from './packet/parse';
+import { createRequestPacket, readMessage } from './packet';
 
 interface GetTimeResult {
   currentTime: Date;
@@ -33,7 +32,7 @@ export function getTime(host: string, port: number, options: GetTimeOptions = {}
     const client = createSocket('udp4');
 
     client.on('message', (data) => {
-      const packet = parsePacket(data);
+      const packet = readMessage(data);
 
       client.close();
       resolve({
@@ -47,7 +46,7 @@ export function getTime(host: string, port: number, options: GetTimeOptions = {}
       reject(error);
     });
 
-    const requestPacket = createPacket(version);
+    const requestPacket = createRequestPacket(version);
     client.send(requestPacket, 0, requestPacket.length, port, host);
   });
 }
